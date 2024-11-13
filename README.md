@@ -1,4 +1,4 @@
-Screenshot.png
+![alt text](Screenshot.png)
 
 
 # Galaxy Menu 🌌
