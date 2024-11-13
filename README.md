@@ -1,3 +1,6 @@
+Screenshot.png
+
+
 # Galaxy Menu 🌌
 
 The **Galaxy Menu** is an interactive, galaxy-themed menu system for adding features and custom functionality to any website. With its sleek design and animated stars, Galaxy Menu is easy to use, requires no coding experience, and makes adding features as simple as clicking a button!
