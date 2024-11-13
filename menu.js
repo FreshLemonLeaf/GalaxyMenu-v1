@@ -78,29 +78,49 @@ addButton.addEventListener("click", () => {
     const featureCode = prompt("Enter JavaScript code for the feature:");
 
     if (featureName && featureCode) {
-        const featureButton = document.createElement("button");
-        featureButton.innerText = featureName;
-        featureButton.style.margin = "5px 0";
-        featureButton.style.width = "100%";
-        featureButton.style.padding = "10px";
-        featureButton.style.backgroundColor = "#555";
-        featureButton.style.color = "white";
-        featureButton.style.border = "none";
-        featureButton.style.cursor = "pointer";
-        featureButton.style.fontFamily = "Arial, sans-serif";
+        // Save the feature in localStorage
+        const features = JSON.parse(localStorage.getItem('features')) || [];
+        features.push({ name: featureName, code: featureCode });
+        localStorage.setItem('features', JSON.stringify(features));
 
-        // Execute the custom JavaScript code when button is clicked
-        featureButton.addEventListener("click", () => {
-            try {
-                eval(featureCode); // Run the user-provided JavaScript code
-            } catch (error) {
-                alert("Error in feature code: " + error.message);
-            }
-        });
-
-        buttonContainer.appendChild(featureButton); // Add the new button to the menu
+        // Create and add the feature button
+        createFeatureButton(featureName, featureCode);
     }
 });
+
+// Function to create feature buttons
+function createFeatureButton(name, code) {
+    const featureButton = document.createElement("button");
+    featureButton.innerText = name;
+    featureButton.style.margin = "5px 0";
+    featureButton.style.width = "100%";
+    featureButton.style.padding = "10px";
+    featureButton.style.backgroundColor = "#555";
+    featureButton.style.color = "white";
+    featureButton.style.border = "none";
+    featureButton.style.cursor = "pointer";
+    featureButton.style.fontFamily = "Arial, sans-serif";
+
+    // Execute the custom JavaScript code when button is clicked
+    featureButton.addEventListener("click", () => {
+        try {
+            eval(code); // Run the user-provided JavaScript code
+        } catch (error) {
+            alert("Error in feature code: " + error.message);
+        }
+    });
+
+    buttonContainer.appendChild(featureButton); // Add the new button to the menu
+}
+
+// Load saved features from localStorage when the page loads
+function loadFeatures() {
+    const features = JSON.parse(localStorage.getItem('features')) || [];
+    features.forEach(feature => createFeatureButton(feature.name, feature.code));
+}
+
+// Call loadFeatures when the page loads to render saved features
+window.onload = loadFeatures;
 
 // Make the menu draggable
 let isDragging = false;
