@@ -1,0 +1,29 @@
+// Function to generate an RGB color and cycle through colors
+let r = 255, g = 0, b = 0;
+let direction = 'decreaseRed';
+
+function changeColor() {
+    // Update RGB values based on the current direction
+    if (direction === 'decreaseRed') {
+        r--;
+        if (r === 0) direction = 'increaseGreen';
+    } else if (direction === 'increaseGreen') {
+        g++;
+        if (g === 255) direction = 'decreaseBlue';
+    } else if (direction === 'decreaseBlue') {
+        b--;
+        if (b === 0) direction = 'increaseRed';
+    } else if (direction === 'increaseRed') {
+        r++;
+        if (r === 255) direction = 'decreaseGreen';
+    }
+
+    // Apply the RGB color to the body background
+    document.body.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
+
+    // Continuously update the color every 10ms
+    requestAnimationFrame(changeColor);
+}
+
+// Start the color cycle
+changeColor();
